@@ -1,0 +1,164 @@
+/**
+ * BillSnap Core Stylesheet (index.css)
+ * ------------------------------------
+ * Defines pastel lilac fintech theme tokens, dark mode overrides, custom scrollbars,
+ * and signature receipt torn-edge styling.
+ * 
+ * Beginner Concept:
+ * CSS variables (:root and .dark) provide dynamic theming. When ThemeContext toggles
+ * the 'dark' class on <html>, all CSS variables shift seamlessly!
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Pastel Lilac Fintech Theme - Light Mode */
+  --color-bg: #FBF9FF;
+  --color-surface: #FFFFFF;
+  --color-card: #D9CCF7;
+  --color-card-subtle: #F2ECFC;
+  --color-text: #2B2147;
+  --color-muted: #8379A3;
+  --color-accent: #6544C7;
+  --color-border: #E6DEF8;
+  --color-nav: #3A2E5C;
+  --color-gold: #FFC857;
+  --color-mint-bg: #D9F3E6;
+  --color-mint-text: #0E7A52;
+  --color-coral-bg: #FDE3E0;
+  --color-coral-text: #A8301F;
+}
+
+.dark {
+  /* Dark Mode Palette */
+  --color-bg: #17122B;
+  --color-surface: #221A3D;
+  --color-card: #3A2E5C;
+  --color-card-subtle: #2B2147;
+  --color-text: #F3EEFF;
+  --color-muted: #A99FC7;
+  --color-accent: #7D5BE0;
+  --color-border: #3A2E5C;
+  --color-nav: #1F1738;
+}
+
+/* Ensure no tap highlight flicker on touch screens */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Figtree', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+  max-width: 100vw;
+  min-width: 320px;
+}
+
+/* Touch manipulation and tap targets */
+input, select, textarea, button {
+  touch-action: manipulation;
+}
+
+/* Safe area insets for notched mobile phones */
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Utility to hide scrollbars on horizontal filter chip rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Headings and monetary values use Bricolage Grotesque */
+h1, h2, h3, h4, .font-heading, .currency-num {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Signature Receipt Torn Zigzag Edge using CSS gradient teeth */
+.receipt-zigzag-bottom {
+  position: relative;
+}
+.receipt-zigzag-bottom::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: 
+    linear-gradient(135deg, var(--color-surface) 6px, transparent 0),
+    linear-gradient(-135deg, var(--color-surface) 6px, transparent 0);
+  background-size: 16px 10px;
+  background-repeat: repeat-x;
+  background-position: left top;
+  z-index: 2;
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(217, 204, 247, 0.25) 25%,
+    rgba(217, 204, 247, 0.5) 50%,
+    rgba(217, 204, 247, 0.25) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(58, 46, 92, 0.3) 25%,
+    rgba(58, 46, 92, 0.7) 50%,
+    rgba(58, 46, 92, 0.3) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

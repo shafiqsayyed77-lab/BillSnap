@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Local embedded MongoDB data directory
+.data/
+
+# Environment Variables
+.env
+
+# Uploaded bill images (keep folder structure, ignore contents)
+uploads/*
+!uploads/.gitkeep
+
+# System / IDE files
+.DS_Store
+Thumbs.db
